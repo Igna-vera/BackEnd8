@@ -14,7 +14,7 @@ export class ProductoCarritoDao {
     try {
       const newProductCartId = await knex.insert(obj).from(this.TABLE_NAME);
       console.log(
-        `✔️ Producto agregado correctamente al carrito, la relación tiene un ID: ${newProductCartId}.`
+        `Producto agregado correctamente al carrito ID: ${newProductCartId}.`
       );
       return newProductCartId;
     } catch (error) {

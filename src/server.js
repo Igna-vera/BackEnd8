@@ -42,7 +42,7 @@ routerProducts.get("/:id", async (req, res) => {
 
   product
     ? res.status(200).json(product)
-    : res.status(400).json({ error: "product not found" });
+    : res.status(400).json({ error: "producto no encontrado" });
 });
 
 // POST api/productos
@@ -54,11 +54,9 @@ routerProducts.post("/", authMiddleware, async (req, res, next) => {
   const newProductId = await productoDao.save(body);
 
   newProductId
-    ? res
-        .status(200)
-        .json({ success: "product added with ID: " + newProductId })
+    ? res.status(200).json({ success: "producto  " + newProductId })
     : res.status(400).json({
-        error: "Some key might be wrong. Please verify the body content",
+        error: "verificar ",
       });
 });
 
@@ -69,10 +67,8 @@ routerProducts.put("/:id", authMiddleware, async (req, res, next) => {
   const wasUpdated = await productoDao.updateProductById(body, id);
 
   wasUpdated
-    ? res.status(200).json({ success: "product updated" })
-    : res
-        .status(404)
-        .json({ error: "product not found or invalid body content." });
+    ? res.status(200).json({ success: "producto updateado" })
+    : res.status(404).json({ error: "producto no valido." });
 });
 
 // DELETE /api/productos/:id
@@ -81,8 +77,8 @@ routerProducts.delete("/:id", authMiddleware, async (req, res, next) => {
   const wasDeleted = await productoDao.deleteById(id);
 
   wasDeleted
-    ? res.status(200).json({ success: "product successfully removed" })
-    : res.status(404).json({ error: "product not found" });
+    ? res.status(200).json({ success: "producto eliminado" })
+    : res.status(404).json({ error: "producto no encontrado" });
 });
 
 /* ------------------------ Cart Endpoints ------------------------ */
@@ -92,10 +88,8 @@ routerCart.post("/", async (req, res) => {
   const newCartId = await carritoDao.save();
 
   newCartId
-    ? res.status(200).json({ success: "cart added with ID: " + newCartId })
-    : res
-        .status(400)
-        .json({ error: "There was a problem, please try again later" });
+    ? res.status(200).json({ success: "ID: " + newCartId })
+    : res.status(400).json({ error: "error" });
 });
 
 // DELETE /api/carrito/id
@@ -104,8 +98,8 @@ routerCart.delete("/:id", async (req, res) => {
   const wasDeleted = await carritoDao.deleteById(id);
 
   wasDeleted
-    ? res.status(200).json({ success: "cart successfully removed" })
-    : res.status(404).json({ error: "cart not found" });
+    ? res.status(200).json({ success: "carrito eliminados" })
+    : res.status(404).json({ error: "carrito no encontrado" });
 });
 
 /* ------------------------- <PRODUCTO> - <CARRITO> ------------------------- */
@@ -123,15 +117,12 @@ routerCart.post("/:id/productos", async (req, res) => {
     );
 
     newProductoCarritoId
-      ? res.status(200).json({ success: "Product added correctly to the Cart" })
+      ? res.status(200).json({ success: "producto añadido" })
       : res.status(400).json({
-          error:
-            "There was some problem. Maybe the ID of the Cart or the ID of the Product are invalid?",
+          error: "error",
         });
   } else {
-    res
-      .status(400)
-      .json({ error: "the key MUST be 'productId', please verify." });
+    res.status(400).json({ error: "error" });
   }
 });
 
@@ -142,8 +133,8 @@ routerCart.delete("/:id/productos/:id_prod", async (req, res) => {
   const wasDeleted = productoCarritoDao.deleteProductFromCart(id, id_prod);
 
   wasDeleted
-    ? res.status(200).json({ success: "product removed from the cart" })
-    : res.status(400).json({ error: "there was some problem" });
+    ? res.status(200).json({ success: "producto eliminado" })
+    : res.status(400).json({ error: "error" });
 });
 
 // GET /api/carrito/:id/productos
@@ -153,7 +144,7 @@ routerCart.get("/:id/productos", async (req, res) => {
   if (cartProducts.length) {
     res.status(200).json(cartProducts);
   } else {
-    res.status(404).json({ error: "cart not found or has no products." });
+    res.status(404).json({ error: "carrito no encontrado" });
   }
 });
 

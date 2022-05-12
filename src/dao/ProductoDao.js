@@ -7,7 +7,7 @@ export class ProductoDao {
   async save(object) {
     try {
       const newProductId = await knex.insert(object).from(this.TABLE_NAME);
-      console.log(`✔️ Producto agregado con ID: ${newProductId}.`);
+      console.log(`Producto agregado con ID: ${newProductId}.`);
       return newProductId;
     } catch (error) {
       console.log(error);
@@ -45,7 +45,7 @@ export class ProductoDao {
         .from(this.TABLE_NAME)
         .where(this.ID_COLUMN, id);
     } catch (error) {
-      console.log("Product not found");
+      console.log("producto no encontrado");
     }
   }
 
